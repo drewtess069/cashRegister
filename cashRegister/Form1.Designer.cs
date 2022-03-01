@@ -40,7 +40,7 @@
             this.subtotalLabel = new System.Windows.Forms.Label();
             this.taxLabel = new System.Windows.Forms.Label();
             this.tenderedLabel = new System.Windows.Forms.Label();
-            this.totalButton = new System.Windows.Forms.Button();
+            this.changeButton = new System.Windows.Forms.Button();
             this.tenderedInput = new System.Windows.Forms.TextBox();
             this.totalLabel = new System.Windows.Forms.Label();
             this.receiptButton = new System.Windows.Forms.Button();
@@ -60,9 +60,9 @@
             // 
             this.titleLabel.BackColor = System.Drawing.Color.Red;
             this.titleLabel.Font = new System.Drawing.Font("Segoe Print", 36F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.titleLabel.Location = new System.Drawing.Point(12, 24);
+            this.titleLabel.Location = new System.Drawing.Point(12, 12);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(365, 87);
+            this.titleLabel.Size = new System.Drawing.Size(365, 99);
             this.titleLabel.TabIndex = 0;
             this.titleLabel.Text = "Drew\'s Dogs";
             this.titleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -157,31 +157,32 @@
             // tenderedLabel
             // 
             this.tenderedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tenderedLabel.Location = new System.Drawing.Point(12, 378);
+            this.tenderedLabel.Location = new System.Drawing.Point(12, 413);
             this.tenderedLabel.Name = "tenderedLabel";
             this.tenderedLabel.Size = new System.Drawing.Size(242, 32);
             this.tenderedLabel.TabIndex = 11;
             this.tenderedLabel.Text = "Tendered";
             this.tenderedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // totalButton
+            // changeButton
             // 
-            this.totalButton.BackColor = System.Drawing.Color.Red;
-            this.totalButton.Enabled = false;
-            this.totalButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.totalButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalButton.Location = new System.Drawing.Point(260, 418);
-            this.totalButton.Name = "totalButton";
-            this.totalButton.Size = new System.Drawing.Size(117, 37);
-            this.totalButton.TabIndex = 8;
-            this.totalButton.Text = "Total";
-            this.totalButton.UseVisualStyleBackColor = false;
-            this.totalButton.Click += new System.EventHandler(this.totalButton_Click);
+            this.changeButton.BackColor = System.Drawing.Color.Red;
+            this.changeButton.Enabled = false;
+            this.changeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.changeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.changeButton.Location = new System.Drawing.Point(260, 455);
+            this.changeButton.Name = "changeButton";
+            this.changeButton.Size = new System.Drawing.Size(117, 37);
+            this.changeButton.TabIndex = 8;
+            this.changeButton.Text = "Change";
+            this.changeButton.UseVisualStyleBackColor = false;
+            this.changeButton.Click += new System.EventHandler(this.changeButton_Click);
             // 
             // tenderedInput
             // 
+            this.tenderedInput.Enabled = false;
             this.tenderedInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tenderedInput.Location = new System.Drawing.Point(260, 379);
+            this.tenderedInput.Location = new System.Drawing.Point(260, 414);
             this.tenderedInput.Name = "tenderedInput";
             this.tenderedInput.Size = new System.Drawing.Size(117, 31);
             this.tenderedInput.TabIndex = 7;
@@ -189,7 +190,7 @@
             // totalLabel
             // 
             this.totalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalLabel.Location = new System.Drawing.Point(12, 463);
+            this.totalLabel.Location = new System.Drawing.Point(12, 358);
             this.totalLabel.Name = "totalLabel";
             this.totalLabel.Size = new System.Drawing.Size(242, 32);
             this.totalLabel.TabIndex = 17;
@@ -202,9 +203,9 @@
             this.receiptButton.Enabled = false;
             this.receiptButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.receiptButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.receiptButton.Location = new System.Drawing.Point(399, 24);
+            this.receiptButton.Location = new System.Drawing.Point(399, 12);
             this.receiptButton.Name = "receiptButton";
-            this.receiptButton.Size = new System.Drawing.Size(260, 56);
+            this.receiptButton.Size = new System.Drawing.Size(260, 59);
             this.receiptButton.TabIndex = 11;
             this.receiptButton.Text = "Print Receipt";
             this.receiptButton.UseVisualStyleBackColor = false;
@@ -243,7 +244,7 @@
             // 
             this.totalOutput.BackColor = System.Drawing.Color.White;
             this.totalOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalOutput.Location = new System.Drawing.Point(260, 465);
+            this.totalOutput.Location = new System.Drawing.Point(260, 360);
             this.totalOutput.Name = "totalOutput";
             this.totalOutput.Size = new System.Drawing.Size(117, 28);
             this.totalOutput.TabIndex = 9;
@@ -282,9 +283,9 @@
             // 
             this.nameReceiptLabel.BackColor = System.Drawing.Color.White;
             this.nameReceiptLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameReceiptLabel.Location = new System.Drawing.Point(398, 94);
+            this.nameReceiptLabel.Location = new System.Drawing.Point(398, 80);
             this.nameReceiptLabel.Name = "nameReceiptLabel";
-            this.nameReceiptLabel.Size = new System.Drawing.Size(261, 60);
+            this.nameReceiptLabel.Size = new System.Drawing.Size(261, 74);
             this.nameReceiptLabel.TabIndex = 27;
             this.nameReceiptLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -304,7 +305,7 @@
             // divider
             // 
             this.divider.BackColor = System.Drawing.Color.Black;
-            this.divider.Location = new System.Drawing.Point(149, 358);
+            this.divider.Location = new System.Drawing.Point(149, 394);
             this.divider.Name = "divider";
             this.divider.Size = new System.Drawing.Size(228, 13);
             this.divider.TabIndex = 29;
@@ -328,7 +329,7 @@
             this.Controls.Add(this.receiptButton);
             this.Controls.Add(this.totalLabel);
             this.Controls.Add(this.tenderedInput);
-            this.Controls.Add(this.totalButton);
+            this.Controls.Add(this.changeButton);
             this.Controls.Add(this.tenderedLabel);
             this.Controls.Add(this.taxLabel);
             this.Controls.Add(this.subtotalLabel);
@@ -361,7 +362,7 @@
         private System.Windows.Forms.Label subtotalLabel;
         private System.Windows.Forms.Label taxLabel;
         private System.Windows.Forms.Label tenderedLabel;
-        private System.Windows.Forms.Button totalButton;
+        private System.Windows.Forms.Button changeButton;
         private System.Windows.Forms.TextBox tenderedInput;
         private System.Windows.Forms.Label totalLabel;
         private System.Windows.Forms.Button receiptButton;

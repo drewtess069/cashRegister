@@ -15,11 +15,11 @@ namespace cashRegister
     {
         //Set variables needed multiple times as global variables
 
-        double hotdogPrice = 5.50;
+        double hotdogPrice = 5;
         double hotdog;
         double sausagePrice = 6;
         double sausage;
-        double drinkPrice = 2.25;
+        double drinkPrice = 2;
         double drink;
 
         double hotdogs;
@@ -47,6 +47,7 @@ namespace cashRegister
         {
             try
             {
+
                 //Play sound when button is clicked
                 SoundPlayer kachingPlayer = new SoundPlayer(Properties.Resources.kaching);
                 kachingPlayer.Play();
@@ -61,45 +62,85 @@ namespace cashRegister
                 sausages = sausage * sausagePrice;
                 drinks = drink * drinkPrice;
 
-                //More math to calculate subtotal and tax
+                //More math to calculate subtotat, tax and total
                 subtotal = hotdogs + sausages + drinks;
                 tax = subtotal * taxRate;
+                total = subtotal + tax;
 
-                //Display the subtotal and tax values
+                //Display the subtotal, tax and total values
                 subtotalOutput.Text = subtotal.ToString("C");
                 taxOutput.Text = tax.ToString("C");
+                totalOutput.Text = total.ToString("C");
 
-                //Enable the total button
-                totalButton.Enabled = true;
+                //Enable the change button
+                changeButton.Enabled = true;
+                tenderedInput.Enabled = true;
             }
             catch
             {
-                //If the computer encounters an error when trying to execute code above
-                //display "error" and reset program
-                hotdogInput.Clear();
-                sausageInput.Clear();
-                drinkInput.Clear();
+                //If any input boxes aren't filled, they will be set to zero,
+                //button gets reclicked so program can continue
+                if ((hotdogInput.Text == "") && (sausageInput.Text == ""))
+                {
+                    hotdogInput.Text = "0";
+                    sausageInput.Text = "0";
+                    calculateButton_Click(sender, e);
+                }
+                else if ((hotdogInput.Text == "") && (drinkInput.Text == ""))
+                {
+                    hotdogInput.Text = "0";
+                    drinkInput.Text = "0";
+                    calculateButton_Click(sender, e);
+                }
+                else if ((sausageInput.Text == "") && (drinkInput.Text == ""))
+                {
+                    sausageInput.Text = "0";
+                    drinkInput.Text = "0";
+                    calculateButton_Click(sender, e);
+                }
+                else if (hotdogInput.Text == "")
+                {
+                    hotdogInput.Text = "0";
+                    calculateButton_Click(sender, e);
+                }
+                else if (sausageInput.Text == "")
+                {
+                    sausageInput.Text = "0";
+                    calculateButton_Click(sender, e);
+                }
+                else if (drinkInput.Text == "")
+                {
+                    drinkInput.Text = "0";
+                    calculateButton_Click(sender, e);
+                }
+                else
+                {
+                    //If the computer encounters an error when trying to execute code above
+                    //display "error" and reset program
+                    hotdogInput.Clear();
+                    sausageInput.Clear();
+                    drinkInput.Clear();
 
-                totalOutput.Text = "";
-                tenderedInput.Clear();
-                changeOutput.Text = "";
+                    totalOutput.Text = "";
+                    tenderedInput.Clear();
+                    changeOutput.Text = "";
 
-                subtotalOutput.Text = "ERROR";
-                taxOutput.Text = "";
-                tenderedInput.Enabled = false;
-                Refresh();
-                Thread.Sleep(1000);
+                    subtotalOutput.Text = "ERROR";
+                    taxOutput.Text = "";
+                    tenderedInput.Enabled = false;
+                    Refresh();
+                    Thread.Sleep(1000);
 
-                subtotalOutput.Text = "";
-                tenderedInput.Enabled = true;
+                    subtotalOutput.Text = "";
+                    tenderedInput.Enabled = true;
+                }
             }
         }
-        private void totalButton_Click(object sender, EventArgs e)
+        private void changeButton_Click(object sender, EventArgs e)
         {
 
             try
             {
-
                 //play sound when button pressed
                 SoundPlayer kachingPlayer = new SoundPlayer(Properties.Resources.kaching);
                 kachingPlayer.Play();
@@ -107,19 +148,34 @@ namespace cashRegister
                 //do variable conversions to type: double
                 tendered = Convert.ToDouble(tenderedInput.Text);
 
-                //do math to find total and change. Store as variables
-                total = subtotal + tax;
-                change = tendered - total;
+                //If the buyer puts in less money than the total they will get a transaction failed message
+                if (tendered < total)
+                {
+                    changeOutput.Text = "ERROR";
+                    Refresh();
+                    Thread.Sleep(1000);
 
-                //display total and change values
-                totalOutput.Text = total.ToString("C");
-                changeOutput.Text = change.ToString("C");
+                    receiptButton_Click(sender, e);
+                    nameReceiptLabel.Text = "TRANSACTION\nFAILED";
+                }
+                else
+                {
+                    //do math to find change. Store as variable
+                    change = tendered - total;
+                    //display change value
+                    changeOutput.Text = change.ToString("C");
 
-                //enable receipt button
-                receiptButton.Enabled = true;
+                    //enable receipt button
+                    receiptButton.Enabled = true;
+                }
             }
             catch
             {
+                if (tenderedInput.Text == "")
+                {
+                    tenderedInput.Text = "0";
+                    changeButton_Click(sender, e);
+                }
                 //If code above is failed to execute, display error and reset program
                 hotdogInput.Clear();
                 sausageInput.Clear();
@@ -129,13 +185,12 @@ namespace cashRegister
                 taxOutput.Text = "";
                 tenderedInput.Text = "";
 
-                totalOutput.Text = "ERROR";
+                changeOutput.Text = "ERROR";
                 Refresh();
                 Thread.Sleep(1000);
 
-                totalOutput.Text = "";
-
-                totalButton.Enabled = false;
+                changeOutput.Text = "";
+                changeButton.Enabled = false;
             }
         }
         private void receiptButton_Click(object sender, EventArgs e)
@@ -197,7 +252,6 @@ namespace cashRegister
                 randomNumber = randGen.Next(0, 1000);
                 itemLabel.Text += $"\n\n   Order #{randomNumber}";
             }
-
             else
             {
                 //If the amount tendered is less than the total price, transaction is unsuccessful
@@ -222,9 +276,10 @@ namespace cashRegister
             receiptLabel.Text = "";
 
             //disable buttons that aren't needed at the beginning of the program
-            totalButton.Enabled = false;
+            changeButton.Enabled = false;
             receiptButton.Enabled = false;
 
+            //reset variables to 0
             hotdog = 0;
             sausage = 0;
             drink = 0;
